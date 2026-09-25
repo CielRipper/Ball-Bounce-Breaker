@@ -90,8 +90,8 @@ setState: https://api.flutter.dev/flutter/widgets/State/setState.html
 
 ## Work Docs
 
-- [Requirement_Doc]: https://hendrix-my.sharepoint.com/:w:/r/personal/krausedl_hendrix_edu/Documents/Sensory%20Overload%20Requirments%20Doc.docx?d=w1064e67e6f5046c69e2fc26ecaa115d9&csf=1&web=1&e=nxgRBY
+[Requirement_Doc] https://hendrix-my.sharepoint.com/:w:/r/personal/krausedl_hendrix_edu/Documents/Sensory%20Overload%20Requirments%20Doc.docx?d=w1064e67e6f5046c69e2fc26ecaa115d9&csf=1&web=1&e=nxgRBY
 
-- [First_Presentation]: https://docs.google.com/presentation/d/1s8XP4nJrc6w363PF6fW3EMkMZ1vDpfIJx-UiN6sDC-A/edit?usp=sharing
+[First_Presentation] https://docs.google.com/presentation/d/1s8XP4nJrc6w363PF6fW3EMkMZ1vDpfIJx-UiN6sDC-A/edit?usp=sharing
 
-- [Demo_Presentation]: https://docs.google.com/presentation/d/1zZSQLowAW2DXmaE0QDZCExtSnGM8DQAyFESD9EovJeA/edit?usp=sharing 
+[Demo_Presentation] https://docs.google.com/presentation/d/1zZSQLowAW2DXmaE0QDZCExtSnGM8DQAyFESD9EovJeA/edit?usp=sharing 
