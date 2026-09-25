@@ -18,7 +18,7 @@ class StartScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const Text(
-            "Top 5 Scores",
+            "Top 3 Scores",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
           Column(

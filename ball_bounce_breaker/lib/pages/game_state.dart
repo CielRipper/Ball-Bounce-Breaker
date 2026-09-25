@@ -23,8 +23,8 @@ class GameState{
     /*highScores = [12, 5, 30, 18, 22];*/
     highScores.sort((b, a) => a.compareTo(b));
 
-    if (highScores.length > 5){
-      highScores = highScores.take(5).toList();
+    if (highScores.length > 3){
+      highScores = highScores.take(3).toList();
     }
   }
 
