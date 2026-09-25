@@ -45,7 +45,7 @@ A game where the player bounces a ball upwards to break blocks using the acceler
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
 
-+ [Accelerometer/sensors]
+- [Accelerometer/sensors]
 
 sensors_plus package: https://pub.dev/packages/sensors_plus
 
@@ -60,24 +60,31 @@ StreamSubscription: https://api.flutter.dev/flutter/dart-async/StreamSubscriptio
 - [Layout(paddle/ball_positioning)]
 
 LayoutBuilder: https://api.flutter.dev/flutter/widgets/LayoutBuilder-class.html
+
 Stack and Positioned: https://api.flutter.dev/flutter/widgets/Stack-class.html / https://api.flutter.dev/flutter/widgets/Positioned-class.html
+
 Align and Alignment: https://api.flutter.dev/flutter/widgets/Align-class.html
+
 WidgetsBinding.addPostFrameCallback: https://api.flutter.dev/flutter/scheduler/SchedulerBinding/addPostFrameCallback.html
 
 - [Custom_drawing(blocks)]
 
 CustomPainter: https://api.flutter.dev/flutter/rendering/CustomPainter-class.html
+
 Canvas: https://api.flutter.dev/flutter/dart-ui/Canvas-class.html
+
 Canvas.drawRect: https://api.flutter.dev/flutter/dart-ui/Canvas/drawRect.html
 
 - [Navigation_between_screens]
 
 Navigator: https://api.flutter.dev/flutter/widgets/Navigator-class.html
+
 Named routes guide: https://docs.flutter.dev/cookbook/navigation/named-routes
 
 - [State_management_basics]
 
 StatefulWidget/State: https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html
+
 setState: https://api.flutter.dev/flutter/widgets/State/setState.html
 
 
