@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+import 'package:ball_bounce_breaker/pages/game_state.dart';
 import 'package:ball_bounce_breaker/models/block.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final GameState gameState;
+  
+  const GameScreen({super.key, required this.gameState});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -44,9 +47,9 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
+    widget.gameState.score = 0;
     // Listen for tilt and move the paddle, but only once the game has started.
-    _accelerometerSubscription =
-        accelerometerEvents.listen((AccelerometerEvent event) {
+    _accelerometerSubscription = accelerometerEventStream().listen((AccelerometerEvent event) {
       if (!_isPlaying) return;
       setState(() {
         _paddleX -= event.x * _paddleSensitivity;
@@ -107,37 +110,35 @@ class _GameScreenState extends State<GameScreen> {
         _ballY = _paddleTop - _ballSize;
         _ballSpeedY = -_ballSpeedY;
       } else if (_ballY >= _screenSize.height - _ballSize) {
-        // Missed the paddle — bounces off the bottom for now.
-        _ballY = _screenSize.height - _ballSize;
-        _ballSpeedY = -_ballSpeedY;
+       _gameTimer?.cancel();
+       _isPlaying = false;
+       widget.gameState.saveScore();
+
+       Navigator.pushNamed(context, '/end');
+       return;
       }
 
-      // NOTE: no ball/block collision yet — the ball currently passes
-      // straight through the blocks. That's the next piece to add.
-
-      // this is ball block collion !!
+      // Block collision added
       final ballRect = Rect.fromLTWH(_ballX, _ballY, _ballSize, _ballSize);
 
-      for (final block in _blocks) {
-        if (block.broken) continue;
+      const columns = 5;
+      const gap = 6.0;
+      const topOffset = 50.0;
+      const blockHeight = 18.0;
+      final blockWidth = (_screenSize.width - (columns + 1) * gap) / columns;
 
-        final rect = blockRect(block, _screenSize);
+      for(final block in _blocks){
+        if(block.broken) continue;
 
-        // if they collide, then we can make the block go away
-        if (ballRect.overlaps(rect)) {
+        final blockTop = topOffset + block.row * (blockHeight + gap);
+        final blockLeft = gap + block.column * (blockWidth + gap);
+
+        final blockRect = Rect.fromLTWH(blockLeft, blockTop, blockWidth, blockHeight);
+
+        if (ballRect.overlaps(blockRect)) {
           block.broken = true;
-
-          // overlap gets us how much is overlaping
-          final overlap = ballRect.intersect(rect);
-
-          if (overlap.width > overlap.height) {
-            // Wide & short sliver → came through the top or bottom
-            _ballSpeedY = -_ballSpeedY;
-          } else {
-            // Tall & thin sliver → came through a side
-            _ballSpeedX = -_ballSpeedX;
-          }
-
+          widget.gameState.addScore();
+          _ballSpeedY = -_ballSpeedY;
           break;
         }
       }
@@ -204,6 +205,18 @@ class _GameScreenState extends State<GameScreen> {
                           decoration: BoxDecoration(
                             color: _paddleColor,
                             borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 20,
+                        left: 20,
+                        child: Text(
+                          "Score: ${widget.gameState.score}",
+                          style: const TextStyle(
+                            color: Colors.white, 
+                            fontSize: 24, fontWeight: 
+                            FontWeight.bold,
                           ),
                         ),
                       ),
