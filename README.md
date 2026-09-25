@@ -45,14 +45,16 @@ A game where the player bounces a ball upwards to break blocks using the acceler
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
 
-- [Accelerometer/sensors]
++ [Accelerometer/sensors]
 
 sensors_plus package: https://pub.dev/packages/sensors_plus
+
 AccelerometerEvent class reference: https://pub.dev/documentation/sensors_plus_platform_interface/latest/sensors_plus_platform_interface/AccelerometerEvent-class.html
 
 - [Timers/game_loop]
 
 Timer.periodic: https://api.flutter.dev/flutter/dart-async/Timer/Timer.periodic.html
+
 StreamSubscription: https://api.flutter.dev/flutter/dart-async/StreamSubscription-class.html
 
 - [Layout(paddle/ball_positioning)]
