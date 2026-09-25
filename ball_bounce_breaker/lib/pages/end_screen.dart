@@ -25,6 +25,9 @@ class EndScreen extends StatelessWidget {
              Text("Final Score: ${gameState.score}",
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
+             Text("Best Score: ${gameState.highScores[0]}",
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
 
             const Spacer(),
 

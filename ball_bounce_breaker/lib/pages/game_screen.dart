@@ -24,6 +24,7 @@ class _GameScreenState extends State<GameScreen> {
   static const double _ballSpeed = 4.0; // pixels per tick, ~60 ticks/sec
   static const Color _paddleColor = Colors.white;
   static const Color _ballColor = Colors.white;
+  static int numLives = 2;
 
   StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
   Timer? _gameTimer; // drives the ball while playing
@@ -48,6 +49,7 @@ class _GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     widget.gameState.score = 0;
+    widget.gameState.lives = numLives;
     // Listen for tilt and move the paddle, but only once the game has started.
     _accelerometerSubscription = accelerometerEventStream().listen((AccelerometerEvent event) {
       if (!_isPlaying) return;
@@ -73,6 +75,15 @@ class _GameScreenState extends State<GameScreen> {
     });
     _gameTimer =
         Timer.periodic(const Duration(milliseconds: 16), (_) => _moveBall());
+  }
+
+  void _resetGame() {
+    _paddleX = 0.0;
+    final paddleTop = _screenSize.height - _paddleBottom - _paddleheight;
+    _ballX = _screenSize.width / 2 - _ballSize / 2;
+    _ballY = paddleTop - _ballSize - 4.0;
+    _ballSpeedX = _ballSpeed;
+    _ballSpeedY = -_ballSpeed;
   }
 
   // Advances the ball and checks it against walls and the paddle.
@@ -110,12 +121,22 @@ class _GameScreenState extends State<GameScreen> {
         _ballY = _paddleTop - _ballSize;
         _ballSpeedY = -_ballSpeedY;
       } else if (_ballY >= _screenSize.height - _ballSize) {
-       _gameTimer?.cancel();
-       _isPlaying = false;
-       widget.gameState.saveScore();
+        // Remove a life if the ball hits the bottom.
+        widget.gameState.removeLife();
+        // End the game if there are no more lives.
+        if (widget.gameState.lives == 0) {
+         _gameTimer?.cancel();
+         _isPlaying = false;
+         widget.gameState.saveScore();
 
-       Navigator.pushNamed(context, '/end');
-       return;
+         Navigator.pushNamed(context, '/end');
+         return;        
+        } else {
+          // Reset to the start of the game_screen, but with 1 fewer life.
+          _gameTimer?.cancel();
+          _isPlaying = false;
+          _resetGame();
+        }
       }
 
       // Block collision added
@@ -220,14 +241,34 @@ class _GameScreenState extends State<GameScreen> {
                           ),
                         ),
                       ),
-                      if (!_isPlaying)
+                      Positioned(
+                        top: 20,
+                        right: 20,
+                        child: Text(
+                          "Lives: ${widget.gameState.lives}",
+                          style: const TextStyle(
+                            color: Colors.white, 
+                            fontSize: 24, fontWeight: 
+                            FontWeight.bold,
+                          ),
+                        ),
+                      ),                      
+                      if (!_isPlaying && widget.gameState.lives == numLives)
                         const Center(
                           child: Text(
                             'Tap Start To Begin!',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
-                        ),
+                        ), 
+                      if (!_isPlaying && widget.gameState.lives < numLives)
+                        const Center(
+                          child: Text(
+                            'Tap Start To Keep Playing!',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20.0),
+                          ),
+                        ),                                               
                     ],
                   );
                 },

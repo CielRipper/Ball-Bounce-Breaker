@@ -1,14 +1,20 @@
 class GameState{
   int score = 0;
+  int lives = 2;
 
   List<int> highScores = [];
 
   void reset(){
     score = 0;
+    lives = 2;
   }
 
   void addScore(){
     score++;
+  }
+
+  void removeLife() {
+    lives -= 1;
   }
 
   void saveScore() {
