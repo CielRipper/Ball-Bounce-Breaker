@@ -40,9 +40,10 @@ A game where the player bounces a ball upwards to break blocks using the acceler
 
 ![Top_3_Scores](images/SaveScore3.png.png)
 
-## Built with / Recources
+## Built with / Resources
  
 [Flutter](https://flutter.dev/)
+
 [Dart](https://dart.dev/)
 
 - [Accelerometer/sensors]
